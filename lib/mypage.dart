@@ -4,13 +4,6 @@ import 'login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-// 비동기 처리 어떻게...?
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  //runApp(Home());
-}
-
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -18,7 +11,28 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle = TextStyle(fontSize: 15);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text('index 0: Home',
+    style: optionStyle,
+    ),
+    Text('index 1: Library',
+    style: optionStyle,
+    ),
+    Text(
+      'My Page',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   String name = "";
   String phone = "";
@@ -72,7 +86,7 @@ class _HomeState extends State<Home> {
         
         // bottomNavigaionBar
 
-        body: Center( 
+        body: Center(
           child: Column(
             children: [
               Container (
@@ -225,26 +239,42 @@ class _HomeState extends State<Home> {
                 )
               ),
 
-              Container ( // 대출 목록
-                height: 70,
-                width: 350,           
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 255, 217, 91),
-                  borderRadius: BorderRadius.circular(20), 
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary:  Color.fromARGB(255, 255, 217, 91),
+                  padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
+                  textStyle: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold
+                  )
                 ),
-                child: Text(
-                  '나의 대출 목록',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.white,
-                  ),
-                ),
+                onPressed: () {},
+                child: const Text('나의 대출목록'),
               ),
+
             ],
           ),
+        ),
+
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.grey[300],
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.book),
+              label: 'Library',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bookmark),
+              label: 'My Page',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.deepPurple,
+          onTap: _onItemTapped,
         ),
       ),
     );

@@ -5,17 +5,6 @@ import 'signup.dart';
 import 'mypage.dart';
 import 'main.dart';
 
-class MyWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-      child: TabPage(),
-      ),
-    );
-  }
-}
-
 class Login extends StatefulWidget {
   const Login({ Key? key }) : super(key: key);
 
