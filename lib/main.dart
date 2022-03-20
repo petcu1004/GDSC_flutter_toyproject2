@@ -11,7 +11,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({ Key? key }) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +19,9 @@ class MyApp extends StatelessWidget {
       title: 'Bookriendly',
       debugShowCheckedModeBanner: false,
       routes: {
-        '/second': (context) => MyCalendar(),
+        // '/second': (context) => MyCalendar(),
       },
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey
-      ),
+      theme: ThemeData(primarySwatch: Colors.blueGrey),
       home: Login(), // 로그인 페이지로
     );
   }

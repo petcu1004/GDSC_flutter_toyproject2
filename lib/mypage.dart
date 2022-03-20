@@ -12,15 +12,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
-
   int _selectedIndex = 0;
   static const TextStyle optionStyle = TextStyle(fontSize: 15);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text('index 0: Home',
-    style: optionStyle,
+    Text(
+      'index 0: Home',
+      style: optionStyle,
     ),
-    Text('index 1: Library',
-    style: optionStyle,
+    Text(
+      'index 1: Library',
+      style: optionStyle,
     ),
     Text(
       'My Page',
@@ -39,11 +40,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   String email = "";
 
   void readData() {
+    Stream collectionStream =
+        FirebaseFirestore.instance.collection('users').snapshots();
+    Stream documentStream = FirebaseFirestore.instance
+        .collection('users')
+        .doc('ABC123')
+        .snapshots();
 
-    Stream collectionStream = FirebaseFirestore.instance.collection('users').snapshots();
-    Stream documentStream = FirebaseFirestore.instance.collection('users').doc('ABC123').snapshots();
-
-    final userCollectionReference = FirebaseFirestore.instance.collection("user").doc('${FirebaseAuth.instance.currentUser!.uid}');
+    final userCollectionReference = FirebaseFirestore.instance
+        .collection("user")
+        .doc('${FirebaseAuth.instance.currentUser!.uid}');
     userCollectionReference.get().then((ds) {
       name = ds.data()!['name'];
       email = ds.data()!['email'];
@@ -68,8 +74,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       MaterialPageRoute(
                           builder: (BuildContext context) => Login()));
                 },
-                icon: Icon(Icons.exit_to_app)
-            )
+                icon: Icon(Icons.exit_to_app))
           ],
           title: Text(
             'Bookriendly',
@@ -81,15 +86,17 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           ),
           centerTitle: true,
           backgroundColor: Color.fromARGB(255, 165, 157, 192),
-          leading: IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)), // 홈으로 가기 버튼
+          leading: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.arrow_back)), // 홈으로 가기 버튼
         ),
-        
+
         // bottomNavigaionBar
 
         body: Center(
           child: Column(
             children: [
-              Container (
+              Container(
                 margin: EdgeInsets.only(top: 70), // 텍스트 필드
                 height: 100,
                 width: 300,
@@ -102,23 +109,22 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   ),
                 ),
               ),
-              
-              Container( // 정보 필드
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
-                padding: EdgeInsets.only(bottom: 50),
-                width: 350,
-                height: 300,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 237, 237, 237),
-                  borderRadius: BorderRadius.circular(30), 
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 50,
-                    ), 
-                    Row(
-                      children: [   
+              Container(
+                  // 정보 필드
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
+                  padding: EdgeInsets.only(bottom: 50),
+                  width: 350,
+                  height: 300,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 237, 237, 237),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 50,
+                      ),
+                      Row(children: [
                         Container(
                           padding: EdgeInsets.only(left: 30),
                           height: 25,
@@ -131,13 +137,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          
                         ),
-
                         SizedBox(
                           width: 10,
                         ),
-
                         Container(
                           width: 210,
                           height: 40,
@@ -150,17 +153,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               fontSize: 17,
                             ),
                           ),
-
                         ),
-                      ]
-                    ),
-
-                    SizedBox(
-                      height: 30,
-                    ),
-
-                    Row(
-                      children: [   
+                      ]),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Row(children: [
                         Container(
                           padding: EdgeInsets.only(left: 30),
                           height: 25,
@@ -172,13 +170,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               fontSize: 21,
                               fontWeight: FontWeight.w600,
                             ),
-                          ),             
+                          ),
                         ),
-
                         SizedBox(
                           width: 10,
                         ),
-
                         Container(
                           width: 210,
                           height: 40,
@@ -191,17 +187,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               fontSize: 16,
                             ),
                           ),
-
                         ),
-                      ]
-                    ),
-
-                    SizedBox(
-                      height: 30,
-                    ),
-
-                    Row(
-                      children: [   
+                      ]),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Row(children: [
                         Container(
                           padding: EdgeInsets.only(left: 30),
                           height: 25,
@@ -215,11 +206,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                             ),
                           ),
                         ),
-
                         SizedBox(
                           width: 10,
                         ),
-
                         Container(
                           width: 210,
                           height: 40,
@@ -233,27 +222,20 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                             ),
                           ),
                         ),
-                      ]
-                    ),
-                  ],
-                )
-              ),
-
+                      ]),
+                    ],
+                  )),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary:  Color.fromARGB(255, 177, 208, 201),
-                  padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
-                  textStyle: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold
-                  )
-                ),
+                    primary: Color.fromARGB(255, 177, 208, 201),
+                    padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
+                    textStyle:
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/second');
                 },
                 child: const Text('나의 대출목록'),
               ),
-
             ],
           ),
         ),
