@@ -5,19 +5,19 @@ import 'signup.dart';
 import 'mypage.dart';
 import 'main.dart';
 
-class MyWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-      child: TabPage(),
-      ),
-    );
-  }
-}
+// class MyWidget extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: TabPage(),
+//       ),
+//     );
+//   }
+// }
 
 class Login extends StatefulWidget {
-  const Login({ Key? key }) : super(key: key);
+  const Login({Key? key}) : super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
@@ -27,11 +27,12 @@ class _LoginState extends State<Login> {
   final _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   final emailController = new TextEditingController();
-  final pwController = new TextEditingController(); 
+  final pwController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope( // 페이지 뒤로가기 방지
+    return WillPopScope(
+      // 페이지 뒤로가기 방지
       onWillPop: () async => false,
       child: Scaffold(
         body: Column(
@@ -49,7 +50,9 @@ class _LoginState extends State<Login> {
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         // 이메일 입력 방식
-                        if (value!.isEmpty || !RegExp(r"[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
+                        if (value!.isEmpty ||
+                            !RegExp(r"[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                .hasMatch(value)) {
                           return ("잘못된 이메일 형식입니다.");
                         }
                       },
@@ -58,7 +61,8 @@ class _LoginState extends State<Login> {
                         prefixIcon: Icon(Icons.mail),
                         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                         hintText: "Email",
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
                       ),
                     ),
                   ),
@@ -78,13 +82,11 @@ class _LoginState extends State<Login> {
                       },
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.vpn_key),
-                        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                        hintText: "Password",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)
-                        )
-                      ),
+                          prefixIcon: Icon(Icons.vpn_key),
+                          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                          hintText: "Password",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10))),
                     ),
                   )
                 ],
@@ -96,7 +98,8 @@ class _LoginState extends State<Login> {
               child: TextButton(
                 child: Text('회원가입'),
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUp()));
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => SignUp()));
                 },
               ),
             ),
@@ -104,7 +107,9 @@ class _LoginState extends State<Login> {
             Container(
               margin: EdgeInsets.only(top: 20),
               child: ElevatedButton(
-                onPressed: () {signIn(emailController.text, pwController.text);},
+                onPressed: () {
+                  signIn(emailController.text, pwController.text);
+                },
                 child: Text("로그인"),
                 style: ElevatedButton.styleFrom(primary: Colors.grey),
               ),
@@ -114,12 +119,15 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
   // 로그인 시도하기
   void signIn(String email, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
-        await _auth.signInWithEmailAndPassword(email: email, password: password);
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home())); // 홈으로
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => TabPage())); // 홈으로
       } catch (e) {
         Fluttertoast.showToast(msg: e.toString());
       }

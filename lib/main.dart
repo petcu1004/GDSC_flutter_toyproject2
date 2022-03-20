@@ -12,7 +12,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({ Key? key }) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,26 +28,26 @@ class MyApp extends StatelessWidget {
 }
 
 class TabPage extends StatefulWidget {
-  const TabPage({ Key? key }) : super(key: key);
+  const TabPage({Key? key}) : super(key: key);
 
   @override
   State<TabPage> createState() => _TabPageState();
 }
 
 class _TabPageState extends State<TabPage> {
-
   int _selectedIndex = 0;
   List _pages = [Home(), Text('page2'), Text('page3')]; // 이동할 페이지
+  //List _pages = [Text('page1'), Text('page2'), Text('page3')];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold( 
+    return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(0),
         child: _pages[_selectedIndex], // 페이지 연결
       ),
       bottomNavigationBar: BottomNavigationBar(
-      // type: BottomNavigationBarType.fixed,
+        type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.grey,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white.withOpacity(.60),
@@ -59,17 +59,16 @@ class _TabPageState extends State<TabPage> {
             _selectedIndex = index;
           });
         },
-        items: <BottomNavigationBarItem> [
+        items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            // title: Text('Home'),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.library_books),
+            label: '222',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.pages)
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.pages), label: '3333e'),
         ],
       ),
     );
