@@ -24,125 +24,171 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false, // 키보드 오버플로우 방지
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              Container(
+                width: 200,
+                height: 30,
+                child: Text(
+                  '회원가입',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                  )
+                ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
               Form(
                 key: _formKey,
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(25, 75, 25, 0),
-                      child: TextFormField(
-                        controller: emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (value) {
-                          if (value!.isEmpty || !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
-                            return ("잘못된 이메일 형식입니다.");
-                          }
-                        },
-                        onSaved: (value) {
-                          emailController.text = value!;
-                        },
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.mail),
-                          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                          hintText: "Email",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)
-                          )
+                child: Container(
+                  width: 350,
+                  height: 450,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 211, 237, 231),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(25, 75, 25, 0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(25, 40, 25, 0),
-                      child: TextFormField(
-                        controller: pwController,
-                        obscureText: true,
-                        validator: (value) {
-                          RegExp regex = new RegExp(r'^.{6,}$');
-                          if (!regex.hasMatch(value!)) {
-                            return ("최소 6자리 이상의 비밀번호가 필요합니다.");
-                          }
-                        },
-                        onSaved: (value) {
-                          pwController.text = value!;
-                        },
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.vpn_key),
-                          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                          hintText: "Password",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)
-                          )
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(25, 40, 25, 0),
-                      child: TextFormField(
-                        controller: nameController,
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value!.isEmpty || !RegExp(r'[a-zA-Z0-9]').hasMatch(value)) {
-                            return ("사용할 수 없는 이름입니다.");
-                          }
-                        },
-                        onSaved: (value) {
-                          emailController.text = value!;
-                        },
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.person),
-                          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                          hintText: "Name",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)
+                        child: TextFormField(
+                          controller: emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value!.isEmpty || !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
+                              return ("잘못된 이메일 형식입니다.");
+                            }
+                          },
+                          onSaved: (value) {
+                            emailController.text = value!;
+                          },
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.mail),
+                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            hintText: "Email",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)
+                            )
                           ),
                         ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(25, 40, 25, 0),
-                      child: TextFormField(
-                        controller: phoneController,
-                        keyboardType: TextInputType.phone,
-                        validator: (value) {
-                          if (value!.isEmpty || value.length != 11 || !RegExp(r'[0-9]').hasMatch(value)) {
-                            return ("잘못된 번호 형식입니다.");
-                          }
-                        },
-                        onSaved: (value) {
-                          emailController.text = value!;
-                        },
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.phone),
-                          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                          hintText: "Phone",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)
-                          )
-                        ),          
+                      Container(
+                        margin: EdgeInsets.fromLTRB(25, 40, 25, 0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextFormField(
+                          controller: pwController,
+                          obscureText: true,
+                          validator: (value) {
+                            RegExp regex = new RegExp(r'^.{6,}$');
+                            if (!regex.hasMatch(value!)) {
+                              return ("최소 6자리 이상의 비밀번호가 필요합니다.");
+                            }
+                          },
+                          onSaved: (value) {
+                            pwController.text = value!;
+                          },
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.vpn_key),
+                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            hintText: "Password",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)
+                            )
+                          ),
+                        ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 40),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.grey),
-                        onPressed: () {
-                          signUp(emailController.text, pwController.text);
-                        },
-                        child: Text('가입하기')
-                      )
-                    )
-                  ],
+                      Container(
+                        margin: EdgeInsets.fromLTRB(25, 40, 25, 0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextFormField(
+                          controller: nameController,
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value!.isEmpty || !RegExp(r'[a-zA-Z0-9]').hasMatch(value)) {
+                              return ("사용할 수 없는 이름입니다.");
+                            }
+                          },
+                          onSaved: (value) {
+                            emailController.text = value!;
+                          },
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.person),
+                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            hintText: "Name",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(25, 40, 25, 0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextFormField(
+                          controller: phoneController,
+                          keyboardType: TextInputType.phone,
+                          validator: (value) {
+                            if (value!.isEmpty || value.length != 11 || !RegExp(r'[0-9]').hasMatch(value)) {
+                              return ("잘못된 번호 형식입니다.");
+                            }
+                          },
+                          onSaved: (value) {
+                            emailController.text = value!;
+                          },
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.phone),
+                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            hintText: "Phone",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)
+                            )
+                          ),          
+                        ),
+                      ),
+                      
+                    ],
+                  ),
                 ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 40),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Color.fromARGB(255, 218, 218, 218)),
+                  onPressed: () {
+                    signUp(emailController.text, pwController.text);
+                  },
+                  child: Text(
+                    '가입하기',
+                    style: TextStyle(
+                      color: Colors.black,
+                    )
+                  ),
+                )
               )
-            ],
+            ]
           ),
         ),
       ),

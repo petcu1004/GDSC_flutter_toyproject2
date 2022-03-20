@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'login.dart';
-import 'mypage.dart';
+import 'my_calender.dart';
 
 // 비동기
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized(); // 바인딩
+  await Firebase.initializeApp(); // 비동기 함수
   runApp(MyApp());
 }
 
@@ -19,8 +18,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Bookriendly',
       debugShowCheckedModeBanner: false,
+      routes: {
+        '/second': (context) => MyCalendar(),
+      },
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
+        primarySwatch: Colors.blueGrey
       ),
       home: Login(), // 로그인 페이지로
     );

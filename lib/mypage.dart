@@ -80,7 +80,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             ),
           ),
           centerTitle: true,
-          backgroundColor: Colors.black,
+          backgroundColor: Color.fromARGB(255, 165, 157, 192),
           leading: IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)), // 홈으로 가기 버튼
         ),
         
@@ -109,7 +109,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 width: 350,
                 height: 300,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 255, 217, 91),
+                  color: Color.fromARGB(255, 237, 237, 237),
                   borderRadius: BorderRadius.circular(30), 
                 ),
                 child: Column(
@@ -241,14 +241,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary:  Color.fromARGB(255, 255, 217, 91),
+                  primary:  Color.fromARGB(255, 177, 208, 201),
                   padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
                   textStyle: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold
                   )
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/second');
+                },
                 child: const Text('나의 대출목록'),
               ),
 

@@ -63,9 +63,9 @@ class _LoginState extends State<Login> {
                 child: Container(
                   // 배경
                   width: 350,
-                  height: 300,
+                  height: 330,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 255, 217, 91),
+                    color: Color.fromARGB(255, 211, 237, 231),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Column(
@@ -138,7 +138,7 @@ class _LoginState extends State<Login> {
                   child: Text(
                     '회원가입',
                     style: TextStyle(
-                      color: Colors.brown,
+                      color: Color.fromARGB(255, 60, 92, 92),
                     ),
                   ),
                   onPressed: () {
@@ -151,9 +151,14 @@ class _LoginState extends State<Login> {
                 margin: EdgeInsets.only(top: 20),
                 child: ElevatedButton(
                   onPressed: () {signIn(emailController.text, pwController.text);},
-                  child: Text("로그인"),
+                  child: Text(
+                    "로그인",
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),  
+                  ),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.grey[300],  
+                    primary: Color.fromARGB(255, 218, 218, 218),  
                   ),
                 ),
               )
