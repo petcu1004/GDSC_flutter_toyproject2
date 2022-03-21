@@ -1,19 +1,22 @@
-import 'dart:typed_data';
+// import 'dart:typed_data';
 
-import 'package:flutter/services.dart';
-import 'package:flutter_toy2/src/model/ev.dart';
-import 'package:flutter_toy2/src/provider/ev_provider.dart';
+// import 'package:flutter/services.dart';
+// import 'package:flutter_toy2/login.dart';
+import 'package:flutter_toy2/model/ev.dart';
+import 'package:flutter_toy2/provider/ev_provider.dart';
+// import 'package:flutter_toy2/src/model/ev.dart';
+// import 'package:flutter_toy2/src/provider/ev_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 
-import 'dart:developer';
+// import 'dart:developer';
 
 class MapWidget extends StatefulWidget {
   MapWidget({Key? key}) : super(key: key);
@@ -41,6 +44,7 @@ class _MapWidgetState extends State<MapWidget> {
 
   @override
   void initState() {
+    // Login();
     //초기화
     _checkPermission();
     super.initState();
@@ -150,21 +154,22 @@ class _MapWidgetState extends State<MapWidget> {
     _evProvider.loadEvs(); // EvProvider에 loadEvs()의 접근
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Ev Provider"),
-        ),
+
+        // appBar: AppBar(
+        //   title: Text("Ev Provider"),
+        // ),
         // Consumer를 통해 데이터를 접근
         body: Consumer<EvProvider>(builder: (context, provider, wideget) {
-          // 데이터가 있으면 _makeListView에 데이터를 전달
-          if (provider.evs != null && provider.evs.length > 0) {
-            return _makeListView(provider.evs);
-            // _viewmap(provider.evs);
-          }
+      // 데이터가 있으면 _makeListView에 데이터를 전달
+      if (provider.evs != null && provider.evs.length > 0) {
+        return _makeListView(provider.evs);
+        // _viewmap(provider.evs);
+      }
 
-          // 데이터가 없으면 CircularProgressIndicator 수행(로딩)
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }));
+      // 데이터가 없으면 CircularProgressIndicator 수행(로딩)
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }));
   }
 }

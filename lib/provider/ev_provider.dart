@@ -1,5 +1,7 @@
-import 'package:flutter_toy2/src/repository/ev_repository.dart';
-import 'package:flutter_toy2/src/model/ev.dart';
+import 'package:flutter_toy2/model/ev.dart';
+import 'package:flutter_toy2/repository/ev_repository.dart';
+// import 'package:flutter_toy2/src/repository/ev_repository.dart';
+// import 'package:flutter_toy2/src/model/ev.dart';
 import 'package:flutter/material.dart';
 
 class EvProvider extends ChangeNotifier {
