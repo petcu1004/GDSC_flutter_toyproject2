@@ -1,40 +1,47 @@
+//대출 화면
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(const MyApp());
+class BorrowList {
+  String bookname;
+  String library;
+  var borrowDate;
+  var returnDate;
+  bool check;
+
+  BorrowList(
+      {required this.bookname,
+      required this.library,
+      required this.borrowDate,
+      required this.returnDate,
+      required this.check});
+
+  //모델 작성
+  BorrowList.fromJson(Map<String, dynamic> json)
+      : bookname = json['bookname'],
+        library = json['library'],
+        borrowDate = json['borrowDate'],
+        returnDate = json['returnDate'],
+        check = json['check'];
+  Map<String, dynamic> toJson() => {
+        'bookname': bookname,
+        'library': library,
+        'borrowDate': borrowDate,
+        'returnDate': returnDate,
+        'check': check,
+      };
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Bookriendly'),
-    );
-  }
+class loan extends StatefulWidget {
+  _loanState createState() => _loanState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _loanState extends State<loan> {
   bool _isChecked = false;
   final _formKey = GlobalKey<FormState>();
-
+  final TextEditingController booknameController = new TextEditingController();
   final TextEditingController libraryController = new TextEditingController();
   DateTime _selectedDate = DateTime(2022);
   DateTime _selectedDate1 = DateTime(2022);
@@ -44,7 +51,19 @@ class _MyHomePageState extends State<MyHomePage> {
 // String convertedDateTime = "${_selectedDate.year.toString()}-${_selectedDate.month.toString().padLeft(2,'0')}-${now.day.toString().padLeft(2,'0')} ${now.hour.toString()}-${now.minute.toString()}";
   @override
   Widget build(BuildContext context) {
+    final Future<FirebaseApp> _initialization = Firebase.initializeApp();
     // DateFormat.yMMMd().format(_selectedDate)
+    Widget bookNameField() {
+      return Expanded(
+        child: TextFormField(
+          autofocus: false,
+          controller: booknameController,
+          onSaved: (value) {
+            libraryController.text = value!;
+          },
+        ),
+      );
+    }
 
     Widget libraryField() {
       return Expanded(
@@ -61,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Bookriendly'),
       ),
       body: Center(
         child: Padding(
@@ -78,45 +97,50 @@ class _MyHomePageState extends State<MyHomePage> {
               const SizedBox(
                 height: 30,
               ),
-              const Text(
-                '책 제목',
-                style: TextStyle(
-                    fontSize: 25.0,
-                    letterSpacing: 2.0,
-                    fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 20,
+              Row(
+                children: [
+                  const Text(
+                    '도서 이름',
+                    style: TextStyle(
+                        fontSize: 25.0,
+                        letterSpacing: 2.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  bookNameField(),
+                ],
               ),
               Row(
                 children: [
                   const Text(
                     '도서관명',
-                    style: TextStyle(fontSize: 18.0, letterSpacing: 1.0),
+                    style: TextStyle(fontSize: 15.0, letterSpacing: 1.0),
                   ),
                   const SizedBox(
-                    width: 30,
+                    width: 10,
                   ),
                   libraryField(),
                 ],
               ),
               const SizedBox(
-                height: 20,
+                height: 25,
               ),
               Row(
                 children: [
                   const Text(
                     '대여일',
-                    style: TextStyle(fontSize: 18.0, letterSpacing: 1.0),
+                    style: TextStyle(fontSize: 15.0, letterSpacing: 1.0),
                   ),
                   const SizedBox(
-                    width: 45,
+                    width: 20,
                   ),
                   Text(
                     '$_selectedDate',
                     // formattedDate,
                     // 'd',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 18),
                   ),
                   IconButton(
                     icon: Icon(Icons.calendar_today_outlined),
@@ -127,17 +151,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         firstDate: DateTime(2020), // 시작일
                         lastDate: DateTime(2030), // 마지막일
                       );
-                      // selectedDate.then((dateTime) {
-                      //   Fluttertoast.showToast(
-                      //     msg: dateTime.toString(),
-                      //     toastLength: Toast.LENGTH_LONG,
-                      //   );
-                      //   setState(() {
-                      //     _selectedDate = dateTime!;
-                      //     // '${dateTime!.year}-${dateTime.month}-${dateTime.day}'
-                      //     //     as DateTime;
-                      //   });
-                      // });
+                      selectedDate.then((dateTime) {
+                        Fluttertoast.showToast(
+                          msg: dateTime.toString(),
+                          toastLength: Toast.LENGTH_LONG,
+                        );
+                        setState(() {
+                          _selectedDate = dateTime!;
+                          // '${dateTime!.year}-${dateTime.month}-${dateTime.day}'
+                          //     as DateTime;
+                        });
+                      });
                     },
                   ),
                 ],
@@ -149,16 +173,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Text(
                     '반납일',
-                    style: TextStyle(fontSize: 18.0, letterSpacing: 1.0),
+                    style: TextStyle(fontSize: 15.0, letterSpacing: 1.0),
                   ),
                   SizedBox(
-                    width: 45,
+                    width: 20,
                   ),
                   Text(
                     '$_selectedDate1',
                     // formattedDate,
                     // 'd',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 18),
                   ),
                   IconButton(
                     icon: Icon(Icons.calendar_today_outlined),
@@ -169,15 +193,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         firstDate: DateTime(2020), // 시작일
                         lastDate: DateTime(2030), // 마지막일
                       );
-                      // selectedDate1.then((dateTime) {
-                      //   Fluttertoast.showToast(
-                      //     msg: dateTime.toString(),
-                      //     toastLength: Toast.LENGTH_LONG,
-                      //   );
-                      //   setState(() {
-                      //     _selectedDate1 = dateTime!;
-                      //   });
-                      // });
+                      selectedDate1.then((dateTime) {
+                        Fluttertoast.showToast(
+                          msg: dateTime.toString(),
+                          toastLength: Toast.LENGTH_LONG,
+                        );
+                        setState(() {
+                          _selectedDate1 = dateTime!;
+                        });
+                      });
                     },
                   ),
                 ],
@@ -190,10 +214,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Text(
                     '알림 여부',
-                    style: TextStyle(fontSize: 18.0, letterSpacing: 1.0),
+                    style: TextStyle(fontSize: 16.0, letterSpacing: 1.0),
                   ),
                   SizedBox(
-                    width: 245,
+                    width: 195,
                   ),
                   Transform.scale(
                     scale: 1.5,
@@ -223,7 +247,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     const Text(
                       '알람시간',
-                      style: TextStyle(fontSize: 18.0, letterSpacing: 1.0),
+                      style: TextStyle(fontSize: 16.0, letterSpacing: 1.0),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -266,7 +290,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 50,
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //클래스 객체 이용해, 파이어베이스에 들어갈 정보 저장
+                    BorrowList _rent = BorrowList(
+                        bookname: booknameController.text,
+                        library: libraryController.text,
+                        borrowDate: '$_selectedDate',
+                        returnDate: '$_selectedDate1',
+                        check: false);
+                    //체크용
+                    print(_rent);
+                    //파이어 베이스에 넣어주기
+                    FirebaseFirestore.instance
+                        .collection('borrow_list')
+                        .doc(_rent.bookname)
+                        .set(_rent.toJson());
+                    print(_rent);
+                  },
                   child: Text(
                     '완료',
                     style: TextStyle(fontSize: 35),
