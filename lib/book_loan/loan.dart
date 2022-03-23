@@ -23,7 +23,7 @@ class BorrowList {
       : bookname = json['bookname'],
         library = json['library'],
         borrowDate = json['borrowDate'],
-        returnDate = json['returnDate'],
+        returnDate = json['retgiurnDate'],
         check = json['check'];
   Map<String, dynamic> toJson() => {
         'bookname': bookname,
