@@ -1,6 +1,7 @@
 //반납 화면
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Comment {
   String bookname;
@@ -268,6 +269,8 @@ class _ReturnScreenState extends State<ReturnScreen> {
                     .collection('borrow_list')
                     .doc(widget.bookname)
                     .update({'check': true});
+                //반납되었음을 알림
+                Fluttertoast.showToast(msg: "반납이 완료되었습니다.");
               },
               child: Text(
                 '반납하기',
