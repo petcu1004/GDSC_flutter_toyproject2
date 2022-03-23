@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+// import 'package:toy2_project/widget/rent_list.dart';
 
 class BorrowList {
   String bookname;
@@ -23,7 +24,7 @@ class BorrowList {
       : bookname = json['bookname'],
         library = json['library'],
         borrowDate = json['borrowDate'],
-        returnDate = json['retgiurnDate'],
+        returnDate = json['returnDate'],
         check = json['check'];
   Map<String, dynamic> toJson() => {
         'bookname': bookname,
@@ -79,9 +80,9 @@ class _loanState extends State<loan> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text('Bookriendly'),
-      ),
+      // appBar: AppBar(
+      //   title: Text('Bookriendly'),
+      // ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
@@ -99,13 +100,8 @@ class _loanState extends State<loan> {
               ),
               Row(
                 children: [
-                  const Text(
-                    '도서 이름',
-                    style: TextStyle(
-                        fontSize: 25.0,
-                        letterSpacing: 2.0,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  const Text('도서 이름',
+                      style: TextStyle(fontSize: 15.0, letterSpacing: 1.0)),
                   const SizedBox(
                     width: 20,
                   ),
@@ -119,7 +115,7 @@ class _loanState extends State<loan> {
                     style: TextStyle(fontSize: 15.0, letterSpacing: 1.0),
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 20,
                   ),
                   libraryField(),
                 ],
@@ -134,13 +130,16 @@ class _loanState extends State<loan> {
                     style: TextStyle(fontSize: 15.0, letterSpacing: 1.0),
                   ),
                   const SizedBox(
-                    width: 20,
+                    width: 30,
                   ),
                   Text(
-                    '$_selectedDate',
+                    '$_selectedDate'.toString().substring(0, 10),
                     // formattedDate,
                     // 'd',
                     style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(
+                    width: 100,
                   ),
                   IconButton(
                     icon: Icon(Icons.calendar_today_outlined),
@@ -176,13 +175,16 @@ class _loanState extends State<loan> {
                     style: TextStyle(fontSize: 15.0, letterSpacing: 1.0),
                   ),
                   SizedBox(
-                    width: 20,
+                    width: 30,
                   ),
                   Text(
-                    '$_selectedDate1',
+                    '$_selectedDate1'.toString().substring(0, 10),
                     // formattedDate,
                     // 'd',
                     style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(
+                    width: 100,
                   ),
                   IconButton(
                     icon: Icon(Icons.calendar_today_outlined),
@@ -287,7 +289,7 @@ class _loanState extends State<loan> {
               ),
 
               SizedBox(
-                height: 50,
+                height: 25,
               ),
               TextButton(
                   onPressed: () {
