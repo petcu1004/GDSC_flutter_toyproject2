@@ -3,9 +3,19 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'dart:async';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized(); //flutter 코어 엔진 초기화
+  await Firebase.initializeApp(); //파이어베이스 초기화
+  runApp(Home());
+}
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  //const Home({Key? key}) : super(key: key);
+
+  // 불러오기가 되었는지 확인
+  bool isLoading = false;
 
   @override
   _HomeState createState() => _HomeState();
@@ -34,28 +44,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     });
   }
 
-  String name = "";
-  String phone = "";
-  String email = "";
-
-  void readData() {
-
-    Stream collectionStream = FirebaseFirestore.instance.collection('users').snapshots();
-    Stream documentStream = FirebaseFirestore.instance.collection('users').doc('ABC123').snapshots();
-
-    final userCollectionReference = FirebaseFirestore.instance.collection("user").doc('${FirebaseAuth.instance.currentUser!.uid}');
-    userCollectionReference.get().then((ds) {
-      name = ds.data()!['name'];
-      email = ds.data()!['email'];
-      phone = ds.data()!['phone'];
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    readData();
-    return MaterialApp(
-      home: Scaffold(
+    //readData();
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           actions: [
@@ -85,179 +79,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         ),
         
         // bottomNavigaionBar
-
-        body: Center(
-          child: Column(
-            children: [
-              Container (
-                margin: EdgeInsets.only(top: 70), // 텍스트 필드
-                height: 100,
-                width: 300,
-                child: Text(
-                  '내 정보',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              
-              Container( // 정보 필드
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
-                padding: EdgeInsets.only(bottom: 50),
-                width: 350,
-                height: 300,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 237, 237, 237),
-                  borderRadius: BorderRadius.circular(30), 
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 50,
-                    ), 
-                    Row(
-                      children: [   
-                        Container(
-                          padding: EdgeInsets.only(left: 30),
-                          height: 25,
-                          width: 100,
-                          child: Text(
-                            'Name',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 21,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          
-                        ),
-
-                        SizedBox(
-                          width: 10,
-                        ),
-
-                        Container(
-                          width: 210,
-                          height: 40,
-                          color: Colors.white,
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                            '${name}',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 17,
-                            ),
-                          ),
-
-                        ),
-                      ]
-                    ),
-
-                    SizedBox(
-                      height: 30,
-                    ),
-
-                    Row(
-                      children: [   
-                        Container(
-                          padding: EdgeInsets.only(left: 30),
-                          height: 25,
-                          width: 100,
-                          child: Text(
-                            'Phone',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 21,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),             
-                        ),
-
-                        SizedBox(
-                          width: 10,
-                        ),
-
-                        Container(
-                          width: 210,
-                          height: 40,
-                          color: Colors.white,
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                            '${phone}',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-
-                        ),
-                      ]
-                    ),
-
-                    SizedBox(
-                      height: 30,
-                    ),
-
-                    Row(
-                      children: [   
-                        Container(
-                          padding: EdgeInsets.only(left: 30),
-                          height: 25,
-                          width: 100,
-                          child: Text(
-                            'Email',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 21,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-
-                        SizedBox(
-                          width: 10,
-                        ),
-
-                        Container(
-                          width: 210,
-                          height: 40,
-                          color: Colors.white,
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                            '${email}',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ]
-                    ),
-                  ],
-                )
-              ),
-
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary:  Color.fromARGB(255, 177, 208, 201),
-                  padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
-                  textStyle: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold
-                  )
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/second');
-                },
-                child: const Text('나의 대출목록'),
-              ),
-
-            ],
-          ),
-        ),
-
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.grey[300],
           items: const <BottomNavigationBarItem>[
@@ -277,6 +98,207 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.deepPurple,
           onTap: _onItemTapped,
+        ),
+        
+
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 70), // 텍스트 필드
+                    height: 100,
+                    width: 300,
+                    child: Text(
+                      '내 정보',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Container( // 정보 필드
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
+                    padding: EdgeInsets.only(bottom: 50),
+                    width: 350,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 237, 237, 237),
+                      borderRadius: BorderRadius.circular(30), 
+                    ),
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection('user')
+                          .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return ListView.builder(
+                              itemCount: snapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                final DocumentSnapshot documentSnapshot = snapshot.data!.docs[index];
+                                print(snapshot.data!.docs.length);
+                                String name = documentSnapshot['name'];
+                                String phone = documentSnapshot['phone'];
+                                String email = documentSnapshot['email'];
+                                return Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 50,
+                                    ), 
+                                    Row(
+                                      children: [   
+                                        Container(
+                                          padding: EdgeInsets.only(left: 30),
+                                          height: 25,
+                                          width: 100,
+                                          child: Text(
+                                            'Name',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 21,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          
+                                        ),
+
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+
+                                        Container(
+                                          width: 210,
+                                          height: 40,
+                                          color: Colors.white,
+                                          padding: EdgeInsets.all(10),
+                                          child: Text(
+                                            documentSnapshot['name'],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 17,
+                                            ),
+                                          ),
+
+                                        ),
+                                      ]
+                                    ),
+
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+
+                                    Row(
+                                      children: [   
+                                        Container(
+                                          padding: EdgeInsets.only(left: 30),
+                                          height: 25,
+                                          width: 100,
+                                          child: Text(
+                                            'Phone',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 21,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),             
+                                        ),
+
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+
+                                        Container(
+                                          width: 210,
+                                          height: 40,
+                                          color: Colors.white,
+                                          padding: EdgeInsets.all(10),
+                                          child: Text(
+                                            documentSnapshot['phone'],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+
+                                        ),
+                                      ]
+                                    ),
+
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+
+                                    Row(
+                                      children: [   
+                                        Container(
+                                          padding: EdgeInsets.only(left: 30),
+                                          height: 25,
+                                          width: 100,
+                                          child: Text(
+                                            'Email',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 21,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+
+                                        Container(
+                                          width: 210,
+                                          height: 40,
+                                          color: Colors.white,
+                                          padding: EdgeInsets.all(10),
+                                          child: Text(
+                                            documentSnapshot['email'],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ]
+                                    ),
+
+                                  ],
+                                );
+                              }
+                            );
+                          }
+                          
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                    )
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary:  Color.fromARGB(255, 177, 208, 201),
+                      padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
+                      textStyle: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold
+                      )
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/second');
+                    },
+                    child: const Text('나의 대출목록'),
+                  ),
+                ]
+              )
+            ]
+          ),
         ),
       ),
     );
