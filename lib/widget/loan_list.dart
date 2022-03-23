@@ -41,8 +41,12 @@ class _loanListState extends State<loanList> {
                     final DocumentSnapshot documentSnapshot =
                         snapshot.data!.docs[index];
                     // print(snapshot.data!.docs.length);
-                    String borrowDate = documentSnapshot['borrowDate'];
-                    String returnDate = documentSnapshot['returnDate'];
+                    DateTime borrowDate =
+                        DateTime.parse(documentSnapshot['borrowDate']);
+                    DateTime returnDate =
+                        DateTime.parse(documentSnapshot['returnDate']);
+                    Duration day = returnDate.difference(borrowDate);
+                    //print(day.inDays);
                     return Card(
                         margin: EdgeInsets.all(10),
                         child: ListTile(
@@ -51,7 +55,7 @@ class _loanListState extends State<loanList> {
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          subtitle: Text(documentSnapshot['borrowDate']),
+                          subtitle: Text('D -' + (day.inDays).toString()),
                           trailing: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               primary: Colors.pink,
