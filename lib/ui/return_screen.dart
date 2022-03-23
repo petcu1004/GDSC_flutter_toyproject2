@@ -56,10 +56,34 @@ class _ReturnScreenState extends State<ReturnScreen> {
   //이모티콘 이벤트 수정 필요
   //이모티콘 누른 경우, 이벤트
   bool _check = false;
+  bool _check1 = false;
+  bool _check2 = false;
+  bool _check3 = false;
 
   _setcheck() {
     setState(() {
       _check = !_check;
+    });
+  }
+
+  _setcheck1() {
+    //주변 선(좋음)
+    setState(() {
+      _check1 = !_check1;
+    });
+  }
+
+  _setcheck2() {
+    //주변 선(보통)
+    setState(() {
+      _check2 = !_check2;
+    });
+  }
+
+  _setcheck3() {
+    //주변 선(그냥 그럼)
+    setState(() {
+      _check3 = !_check3;
     });
   }
 
@@ -93,7 +117,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
               children: [
                 Ink(
                   decoration: BoxDecoration(
-                    border: _check
+                    border: _check1
                         ? Border.all(color: Colors.blue, width: 2.0)
                         : Border.all(color: Colors.black12, width: 2.0),
                     color: Colors.white,
@@ -103,6 +127,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
                     onPressed: () {
                       emoji = "아주 좋음";
                       _setcheck();
+                      _setcheck1();
                     },
                     icon: Icon(Icons.sentiment_very_satisfied),
                     color: Colors.pink[300],
@@ -112,7 +137,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
                 ),
                 Ink(
                   decoration: BoxDecoration(
-                    border: _check
+                    border: _check2
                         ? Border.all(color: Colors.blue, width: 2.0)
                         : Border.all(color: Colors.black12, width: 2.0),
                     color: Colors.white,
@@ -122,6 +147,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
                     onPressed: () {
                       emoji = "보통";
                       _setcheck();
+                      _setcheck2();
                     },
                     icon: Icon(Icons.sentiment_satisfied),
                     color: Colors.pink[300],
@@ -131,7 +157,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
                 ),
                 Ink(
                   decoration: BoxDecoration(
-                    border: _check
+                    border: _check3
                         ? Border.all(color: Colors.blue, width: 2.0)
                         : Border.all(color: Colors.black12, width: 2.0),
                     color: Colors.white,
@@ -141,6 +167,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
                     onPressed: () {
                       emoji = "별로";
                       _setcheck();
+                      _setcheck3();
                     },
                     icon: Icon(Icons.sentiment_very_dissatisfied_rounded),
                     color: Colors.pink[300],
