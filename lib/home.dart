@@ -7,6 +7,7 @@ import 'package:flutter_toy2/mypage.dart';
 import 'package:flutter_toy2/ui/map.dart';
 // import 'package:flutter_toy2/src/ui/map.dart';
 // import 'home1.dart';
+import 'home_screen.dart';
 import 'login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_core/firebase_core.dart';
@@ -26,7 +27,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   int _selectedIndex = 0;
-  List<Widget> screenList = [loan(), Home1(), MyPage()];
+  List<Widget> screenList = [HomeScreen(), Home1(), MyPage()];
+
   static const TextStyle optionStyle = TextStyle(fontSize: 15);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(

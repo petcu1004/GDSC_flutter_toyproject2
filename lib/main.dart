@@ -33,5 +33,24 @@ class MyApp extends StatelessWidget {
           ],
           child: Login(), // 로그인 페이지로
         ));
+    // Login(),
+    // );
   }
+
+  // Widget build(BuildContext context) {
+  //   return MaterialApp(
+  //       title: 'Flutter Demo',
+  //       theme: ThemeData(
+  //         primarySwatch: Colors.blue,
+  //       ),
+  //       // MultiProvider를 통해 여러가지 Provider를 관리
+  //       home: MultiProvider(
+  //         // ChangeNotifierProvider 통해 변화에 대해 구독
+  //         providers: [
+  //           ChangeNotifierProvider(
+  //               create: (BuildContext context) => EvProvider())
+  //         ],
+  //         child: MapWidget(), // home.dart
+  //       ));
+  // }
 }
