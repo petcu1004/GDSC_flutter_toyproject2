@@ -8,20 +8,20 @@ import 'dart:async';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); //flutter 코어 엔진 초기화
   await Firebase.initializeApp(); //파이어베이스 초기화
-  runApp(Home());
+  runApp(MyPage());
 }
 
-class Home extends StatefulWidget {
+class MyPage extends StatefulWidget {
   //const Home({Key? key}) : super(key: key);
 
   // 불러오기가 되었는지 확인
   bool isLoading = false;
 
   @override
-  _HomeState createState() => _HomeState();
+  _MyPageState createState() => _MyPageState();
 }
 
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+class _MyPageState extends State<MyPage> with SingleTickerProviderStateMixin {
 
   int _selectedIndex = 0;
   static const TextStyle optionStyle = TextStyle(fontSize: 15);
@@ -33,7 +33,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     style: optionStyle,
     ),
     Text(
-      'My Page',
+      'index 2: My Page',
       style: optionStyle,
     ),
   ];
@@ -46,7 +46,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    //readData();
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

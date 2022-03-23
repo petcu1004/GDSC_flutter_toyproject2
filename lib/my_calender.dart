@@ -24,10 +24,10 @@ class MyCalendar extends StatefulWidget {
 }
 
 class _MyCalendarState extends State<MyCalendar> {
-
   late final ValueNotifier<List<Event>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
-  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff; // Can be toggled on/off by longpressing a date
+  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
+      .toggledOff; // Can be toggled on/off by longpressing a date
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   DateTime? _rangeStart;
@@ -50,6 +50,17 @@ class _MyCalendarState extends State<MyCalendar> {
   // Event
   List<Event> _getEventsForDay(DateTime day) {
     return events[day] ?? [];
+  }
+
+  // Events selected on tap
+  void _OnDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    if (!isSameDay(_selectedDay, selectedDay)) {
+      setState(() {
+        _focusedDay = focusedDay;
+        _selectedDay = selectedDay;
+      });
+      _selectedEvents.value = _getEventsForDay(selectedDay);
+    }
   }
 
   // Events selected on tap
@@ -82,7 +93,7 @@ class _MyCalendarState extends State<MyCalendar> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => Home()
+              builder: (BuildContext context) => MyPage()
             )
           );
         }, 
