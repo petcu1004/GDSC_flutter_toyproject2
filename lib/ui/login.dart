@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_toy2/home.dart';
+import 'package:flutter_toy2/ui/home.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'signup.dart';
 import 'mypage.dart';
-import 'main.dart';
+import '../main.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);

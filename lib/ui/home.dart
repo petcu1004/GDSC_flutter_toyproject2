@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_toy2/book_loan/loan.dart';
-import 'package:flutter_toy2/home1.dart';
-import 'package:flutter_toy2/my_calender.dart';
+import 'package:flutter_toy2/ui/home1.dart';
+import 'package:flutter_toy2/widget/my_calender.dart';
 // import 'package:flutter_toy2/home1.dart';
-import 'package:flutter_toy2/mypage.dart';
+import 'package:flutter_toy2/ui/mypage.dart';
 import 'package:flutter_toy2/ui/map.dart';
 // import 'package:flutter_toy2/src/ui/map.dart';
 // import 'home1.dart';
