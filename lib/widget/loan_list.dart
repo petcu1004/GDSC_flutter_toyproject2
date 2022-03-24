@@ -53,12 +53,13 @@ class _loanListState extends State<loanList> {
                           title: Text(
                             documentSnapshot['bookname'],
                             style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                                fontSize: 23, fontWeight: FontWeight.bold),
                           ),
-                          subtitle: Text('D -' + (day.inDays).toString()),
+                          subtitle: Text('D -' + (day.inDays).toString(),
+                              style: TextStyle(fontSize: 20)),
                           trailing: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.pink,
+                              primary: Colors.indigo[400],
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20.0)),
                               elevation: 0.0,
@@ -75,7 +76,7 @@ class _loanListState extends State<loanList> {
                             child: Text(
                               '반납',
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
+                                  TextStyle(color: Colors.white, fontSize: 19),
                             ),
                           ),
                         ));

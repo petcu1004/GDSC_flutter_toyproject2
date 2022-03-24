@@ -97,7 +97,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(backgroundColor: Colors.pink[200], elevation: 0.0),
+      appBar: AppBar(backgroundColor: Colors.orange, elevation: 0.0),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -130,7 +130,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
                       _setcheck1();
                     },
                     icon: Icon(Icons.sentiment_very_satisfied),
-                    color: Colors.pink[300],
+                    color: Colors.orange,
                     iconSize: 50,
                     tooltip: '아주 좋음',
                   ),
@@ -150,7 +150,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
                       _setcheck2();
                     },
                     icon: Icon(Icons.sentiment_satisfied),
-                    color: Colors.pink[300],
+                    color: Colors.orange,
                     iconSize: 50,
                     tooltip: '보통',
                   ),
@@ -170,7 +170,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
                       _setcheck3();
                     },
                     icon: Icon(Icons.sentiment_very_dissatisfied_rounded),
-                    color: Colors.pink[300],
+                    color: Colors.orange,
                     iconSize: 50,
                     tooltip: '별로',
                   ),
@@ -189,7 +189,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
                 hintText: '한줄 소감',
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(width: 2, color: Colors.pink),
+                  borderSide: BorderSide(width: 2, color: Colors.orange),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -228,7 +228,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
                   style: ElevatedButton.styleFrom(
                       side: _yesTap
                           ? BorderSide(color: Colors.white)
-                          : BorderSide(color: Colors.black26, width: 3.0),
+                          : BorderSide(color: Colors.black45, width: 3.0),
                       primary: _yesTap ? Colors.indigo[300] : Colors.white,
                       minimumSize: Size(150, 60),
                       shape: RoundedRectangleBorder(
@@ -238,7 +238,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
                     'YES',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: _yesTap ? Colors.white : Colors.pink,
+                        color: _yesTap ? Colors.white : Colors.orange[900],
                         fontSize: 20),
                   ),
                 ),
@@ -253,7 +253,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
                   style: ElevatedButton.styleFrom(
                       side: _noTap
                           ? BorderSide(color: Colors.white)
-                          : BorderSide(color: Colors.black26, width: 3.0),
+                          : BorderSide(color: Colors.black45, width: 3.0),
                       primary: _noTap ? Colors.indigo[300] : Colors.white,
                       minimumSize: Size(150, 60),
                       shape: RoundedRectangleBorder(
@@ -263,7 +263,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
                     'NO',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: _noTap ? Colors.white : Colors.pink,
+                        color: _noTap ? Colors.white : Colors.orange[900],
                         fontSize: 20),
                   ),
                 ),
@@ -307,7 +307,7 @@ class _ReturnScreenState extends State<ReturnScreen> {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.pink,
+                  primary: Colors.indigo[300],
                   minimumSize: Size(200, 60),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40.0)),

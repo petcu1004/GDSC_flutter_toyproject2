@@ -12,7 +12,6 @@ Future<void> main() async {
   runApp(MyCalendar());
 }
 
-
 class MyCalendar extends StatefulWidget {
   //const MyCalendar({ Key? key }) : super(key: key);
 
@@ -70,7 +69,7 @@ class _MyCalendarState extends State<MyCalendar> {
         _focusedDay = focusedDay;
         _selectedDay = selectedDay;
       });
-       _selectedEvents.value = _getEventsForDay(selectedDay);
+      _selectedEvents.value = _getEventsForDay(selectedDay);
     }
   }
 
@@ -88,16 +87,16 @@ class _MyCalendarState extends State<MyCalendar> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 165, 157, 192),
-        leading: IconButton(onPressed: () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => MyPage()
-            )
-          );
-        }, 
-        icon: const Icon(Icons.arrow_back)), // 홈으로 가기 버튼
+        backgroundColor: Colors.orange,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              //   Navigator.pushReplacement(
+              //       context,
+              //       MaterialPageRoute(
+              //           builder: (BuildContext context) => MyPage()));
+            },
+            icon: const Icon(Icons.arrow_back)), // 홈으로 가기 버튼
       ),
       body: Center(
         child: Column(
@@ -105,14 +104,14 @@ class _MyCalendarState extends State<MyCalendar> {
             Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 50),
+                  margin: EdgeInsets.only(top: 25),
                   width: 200,
                   height: 50,
                   child: Text(
                     '나의 대출 목록',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -124,7 +123,6 @@ class _MyCalendarState extends State<MyCalendar> {
                   margin: EdgeInsets.all(10),
                   // 달력
                   child: TableCalendar<Event>(
-
                     calendarFormat: _calendarFormat,
                     onFormatChanged: (format) {
                       setState(() {
@@ -132,10 +130,10 @@ class _MyCalendarState extends State<MyCalendar> {
                       });
                     },
                     focusedDay: DateTime.now(),
-                    firstDay: DateTime(2022,1,1),
-                    lastDay: DateTime(2022,12,31),
+                    firstDay: DateTime(2022, 1, 1),
+                    lastDay: DateTime(2022, 12, 31),
                     //locale: 'ko-KR',
-                    
+
                     onPageChanged: (focusedDay) {
                       _focusedDay = focusedDay;
                     },
@@ -151,7 +149,7 @@ class _MyCalendarState extends State<MyCalendar> {
                     calendarStyle: CalendarStyle(
                       outsideDaysVisible: false,
                       todayDecoration: BoxDecoration(
-                        color: Color.fromARGB(255, 179, 174, 196),
+                        color: Colors.indigo,
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -171,49 +169,53 @@ class _MyCalendarState extends State<MyCalendar> {
                   width: 350,
                   height: 150,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Color.fromARGB(255, 218, 218, 218), width: 2),
+                    border: Border.all(
+                        color: Color.fromARGB(255, 218, 218, 218), width: 2),
                   ),
                   // 리스트
                   child: Container(
-                    padding: EdgeInsets.all(10),
-                    // 대출한 책 목록 가져오기
-                    child: StreamBuilder<QuerySnapshot>(
-                      stream: FirebaseFirestore.instance
-                          .collection('borrow_list')
-                          .snapshots(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return ListView.builder(
-                              itemCount: snapshot.data!.docs.length,
-                              itemBuilder: (context, index) {
-                                final DocumentSnapshot documentSnapshot =
-                                    snapshot.data!.docs[index];
-                                print(snapshot.data!.docs.length);
-                                String borrowDate = documentSnapshot['borrowDate'];
-                                String returnDate = documentSnapshot['returnDate'];
-                                return Card(
-                                  color: Color.fromARGB(255, 225, 233, 232),
-                                  margin: EdgeInsets.all(10),
-                                  child: ListTile(
-                                    title: Text(
-                                      documentSnapshot['bookname'],
-                                      style: TextStyle(
-                                          fontSize: 20, fontWeight: FontWeight.bold),
-                                    ),
-                                    subtitle: Text('대출일: ' + documentSnapshot['borrowDate'] + "\t\t\t반납일: " + documentSnapshot['returnDate']),
-                                  )
-                                );
-                              },
+                      padding: EdgeInsets.all(10),
+                      // 대출한 책 목록 가져오기
+                      child: StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('borrow_list')
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return ListView.builder(
+                                itemCount: snapshot.data!.docs.length,
+                                itemBuilder: (context, index) {
+                                  final DocumentSnapshot documentSnapshot =
+                                      snapshot.data!.docs[index];
+                                  print(snapshot.data!.docs.length);
+                                  String borrowDate =
+                                      documentSnapshot['borrowDate'];
+                                  String returnDate =
+                                      documentSnapshot['returnDate'];
+                                  return Card(
+                                      color: Colors.white,
+                                      margin: EdgeInsets.all(10),
+                                      child: ListTile(
+                                        title: Text(
+                                          documentSnapshot['bookname'],
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        subtitle: Text('대출일: ' +
+                                            documentSnapshot['borrowDate'] +
+                                            "\t\t\t반납일: " +
+                                            documentSnapshot['returnDate']),
+                                      ));
+                                },
+                              );
+                            }
+                            return const Center(
+                              child: CircularProgressIndicator(),
                             );
-                          }
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                    )
-                  ),
+                          })),
                 )
               ],
             ),

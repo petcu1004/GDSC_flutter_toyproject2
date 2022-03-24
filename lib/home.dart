@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_toy2/book_loan/loan.dart';
 import 'package:flutter_toy2/home1.dart';
+import 'package:flutter_toy2/my_calender.dart';
 // import 'package:flutter_toy2/home1.dart';
 import 'package:flutter_toy2/mypage.dart';
 import 'package:flutter_toy2/ui/map.dart';
@@ -78,6 +79,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     readData();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      // initialRoute: '/start',
+      // routes: {
+      //   '/start': (context) => Login(),
+      //   // '/first': (context) => MyPage(),
+      //   '/second': (context) => MyCalendar(),
+      // },
       home: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -102,7 +109,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             ),
           ),
           centerTitle: true,
-          backgroundColor: Color.fromARGB(255, 165, 157, 192),
+          backgroundColor: Colors.orange,
           leading: IconButton(
               onPressed: () {},
               icon: const Icon(Icons.arrow_back)), // 홈으로 가기 버튼
@@ -258,18 +265,27 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         // ),
 
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.grey[300],
+          backgroundColor: Colors.white,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(
+                Icons.home,
+                size: 30,
+              ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.book),
+              icon: Icon(
+                Icons.book,
+                size: 30,
+              ),
               label: 'Library',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark),
+              icon: Icon(
+                Icons.bookmark,
+                size: 30,
+              ),
               label: 'My Page',
             ),
           ],

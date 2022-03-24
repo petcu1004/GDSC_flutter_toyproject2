@@ -31,28 +31,30 @@ class _LoginState extends State<Login> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
+                padding: EdgeInsets.only(top: 10),
                 width: 200,
                 height: 50,
                 child: Text(
-                  'Bookriendly',
+                  '"Bookriendly"',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 35,
-                  ),
+                      color: Colors.indigo,
+                      fontSize: 35,
+                      fontStyle: FontStyle.italic),
                 ),
               ),
               SizedBox(
-                height: 100,
+                height: 30,
               ),
               Container(
                 width: 200,
-                height: 30,
+                height: 40,
                 child: Text('로그인',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 20,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
                     )),
               ),
               SizedBox(
@@ -63,16 +65,16 @@ class _LoginState extends State<Login> {
                 child: Container(
                   // 배경
                   width: 350,
-                  height: 330,
+                  height: 300,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 211, 237, 231),
-                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: Column(
                     children: [
                       // 이메일 텍스트 필드
                       Container(
-                        margin: EdgeInsets.fromLTRB(25, 75, 25, 0),
+                        margin: EdgeInsets.fromLTRB(25, 50, 25, 0),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
@@ -141,8 +143,9 @@ class _LoginState extends State<Login> {
                   child: Text(
                     '회원가입',
                     style: TextStyle(
-                      color: Color.fromARGB(255, 60, 92, 92),
-                    ),
+                        color: Colors.black45,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
                   ),
                   onPressed: () {
                     Navigator.of(context).push(
@@ -157,14 +160,14 @@ class _LoginState extends State<Login> {
                   onPressed: () {
                     signIn(emailController.text, pwController.text);
                   },
-                  child: Text(
-                    "로그인",
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
+                  child: Text("로그인",
+                      style: TextStyle(fontSize: 23, color: Colors.white)),
                   style: ElevatedButton.styleFrom(
-                    primary: Color.fromARGB(255, 218, 218, 218),
+                    primary: Colors.orange,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0)),
+                    elevation: 0.0,
+                    minimumSize: Size(150, 50),
                   ),
                 ),
               )

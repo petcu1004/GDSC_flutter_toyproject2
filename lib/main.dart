@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/second': (context) => MyCalendar(),
         },
-        theme: ThemeData(primarySwatch: Colors.blueGrey),
+        theme: ThemeData(primarySwatch: Colors.orange),
         home: MultiProvider(
           // ChangeNotifierProvider 통해 변화에 대해 구독
           providers: [
