@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_toy2/book_loan/loan.dart';
-import 'widget/loan_list.dart';
-import 'widget/search_bar.dart';
+import '../widget/loan_list.dart';
+import '../widget/search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();

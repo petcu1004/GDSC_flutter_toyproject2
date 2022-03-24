@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'model/book_model.dart';
-import 'ui/return_screen.dart';
+import '../model/book_model.dart';
+import 'return_screen.dart';
 
 class Detail extends StatefulWidget {
   final Book book;
