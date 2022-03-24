@@ -12,7 +12,7 @@ class _SearchBarWidget extends State<SearchBar> {
   FocusNode focusNode = FocusNode();
   String _searchText = "";
 
-  _SearchScreenState() {
+  _SearchBarWidget() {
     _filter.addListener(() {
       setState(() {
         _searchText = _filter.text;
@@ -44,16 +44,15 @@ class _SearchBarWidget extends State<SearchBar> {
       ),
       height: 70,
       width: 500,
-      child: GridView(
-          padding: EdgeInsets.all(3),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              crossAxisSpacing: 10.0,
-              mainAxisSpacing: 2.0,
-              childAspectRatio: 3 / 2),
-          children: searchResults
-              .map((data) => _buildListItem(context, data))
-              .toList()),
+      child: GridView.count(
+        padding: EdgeInsets.all(3),
+        crossAxisCount: 4,
+        crossAxisSpacing: 10.0,
+        mainAxisSpacing: 2.0,
+        childAspectRatio: 3 / 2,
+        children:
+            searchResults.map((data) => _buildListItem(context, data)).toList(),
+      ),
     );
   }
 
@@ -65,14 +64,15 @@ class _SearchBarWidget extends State<SearchBar> {
         child: Container(
           padding: EdgeInsets.all(5),
           decoration: BoxDecoration(
-              color: Colors.blue[100],
+              color: Colors.indigo[400],
               borderRadius: BorderRadius.circular(20.0),
-              border: Border.all(color: Colors.blue, width: 3)),
+              border: Border.all(color: Colors.indigo, width: 3)),
           child: Text(book.bookname,
               style: TextStyle(
-                  color: Colors.indigo[900],
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold)),
+                color: Colors.white,
+                fontSize: 20,
+                // fontWeight: FontWeight.bold
+              )),
         ),
       ),
       onTap: () {
@@ -107,7 +107,7 @@ class _SearchBarWidget extends State<SearchBar> {
                     style: TextStyle(
                       fontSize: 15,
                     ),
-                    autofocus: true,
+                    autofocus: false,
                     controller: _filter,
                     decoration: InputDecoration(
                       filled: true,

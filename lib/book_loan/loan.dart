@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:toy2_project/widget/rent_list.dart';
 
 class BorrowList {
   String bookname;
@@ -80,8 +79,10 @@ class _loanState extends State<loan> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('Bookriendly'),
-      ),
+          backgroundColor: Colors.orange,
+          title: Text('Bookriendly'),
+          centerTitle: true,
+          elevation: 0.0),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
@@ -90,7 +91,8 @@ class _loanState extends State<loan> {
               const Text(
                 '대출 정보 입력',
                 style: TextStyle(
-                    fontSize: 18.0,
+                    color: Colors.black,
+                    fontSize: 23.0,
                     letterSpacing: 2.0,
                     fontWeight: FontWeight.bold),
               ),
@@ -98,23 +100,31 @@ class _loanState extends State<loan> {
                 height: 30,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('도서 이름',
-                      style: TextStyle(fontSize: 15.0, letterSpacing: 1.0)),
+                  const Text('도서명',
+                      style: TextStyle(
+                          fontSize: 19.0,
+                          letterSpacing: 1.0,
+                          fontWeight: FontWeight.bold)),
                   const SizedBox(
-                    width: 20,
+                    width: 18,
                   ),
                   bookNameField(),
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    '도서관명',
-                    style: TextStyle(fontSize: 15.0, letterSpacing: 1.0),
+                    '도서관',
+                    style: TextStyle(
+                        fontSize: 19.0,
+                        letterSpacing: 1.0,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
-                    width: 20,
+                    width: 18,
                   ),
                   libraryField(),
                 ],
@@ -123,10 +133,15 @@ class _loanState extends State<loan> {
                 height: 25,
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
                     '대여일',
-                    style: TextStyle(fontSize: 15.0, letterSpacing: 1.0),
+                    style: TextStyle(
+                        fontSize: 19.0,
+                        letterSpacing: 1.0,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     width: 30,
@@ -135,7 +150,7 @@ class _loanState extends State<loan> {
                     '$_selectedDate'.toString().substring(0, 10),
                     // formattedDate,
                     // 'd',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 19),
                   ),
                   SizedBox(
                     width: 100,
@@ -168,10 +183,15 @@ class _loanState extends State<loan> {
                 height: 20,
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     '반납일',
-                    style: TextStyle(fontSize: 15.0, letterSpacing: 1.0),
+                    style: TextStyle(
+                        fontSize: 19.0,
+                        letterSpacing: 1.0,
+                        fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     width: 30,
@@ -180,7 +200,7 @@ class _loanState extends State<loan> {
                     '$_selectedDate1'.toString().substring(0, 10),
                     // formattedDate,
                     // 'd',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 19),
                   ),
                   SizedBox(
                     width: 100,
@@ -211,11 +231,15 @@ class _loanState extends State<loan> {
                 height: 20,
               ),
               Row(
-                // mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     '알림 여부',
-                    style: TextStyle(fontSize: 16.0, letterSpacing: 1.0),
+                    style: TextStyle(
+                        fontSize: 19.0,
+                        letterSpacing: 1.0,
+                        fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     width: 195,
@@ -223,6 +247,7 @@ class _loanState extends State<loan> {
                   Transform.scale(
                     scale: 1.5,
                     child: Checkbox(
+                        activeColor: Colors.indigo,
                         shape: CircleBorder(),
                         tristate: false,
                         splashRadius: 30,
@@ -241,14 +266,17 @@ class _loanState extends State<loan> {
               // ignore: unnecessary_new
               new Container(
                 decoration: BoxDecoration(
-                    border: Border.all(),
+                    color: Colors.grey[300],
                     borderRadius:
                         const BorderRadius.all(Radius.circular(15.0))),
                 child: Column(
                   children: <Widget>[
                     const Text(
                       '알람시간',
-                      style: TextStyle(fontSize: 16.0, letterSpacing: 1.0),
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        letterSpacing: 1.0,
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -290,7 +318,7 @@ class _loanState extends State<loan> {
               SizedBox(
                 height: 25,
               ),
-              TextButton(
+              ElevatedButton(
                   onPressed: () {
                     //클래스 객체 이용해, 파이어베이스에 들어갈 정보 저장
                     BorrowList _rent = BorrowList(
@@ -309,10 +337,19 @@ class _loanState extends State<loan> {
                         .doc(_rent.bookname)
                         .set(_rent.toJson());
                     print(_rent);
+
+                    Navigator.pop(context);
                   },
+                  style: ElevatedButton.styleFrom(
+                      side: BorderSide(color: Colors.indigo, width: 3.0),
+                      primary: Colors.indigo,
+                      minimumSize: Size(150, 60),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      elevation: 0.0),
                   child: Text(
                     '완료',
-                    style: TextStyle(fontSize: 35),
+                    style: TextStyle(fontSize: 25, color: Colors.white),
                   ))
             ],
           ),

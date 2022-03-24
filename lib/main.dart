@@ -4,7 +4,8 @@ import 'package:flutter_toy2/provider/ev_provider.dart';
 // import 'package:flutter_toy2/ui/map.dart';
 import 'package:provider/provider.dart';
 import 'login.dart';
-// import 'my_calender.dart';
+import 'my_calender.dart';
+import 'dart:async';
 
 // 비동기
 Future<void> main() async {
@@ -22,9 +23,9 @@ class MyApp extends StatelessWidget {
         title: 'Bookriendly',
         debugShowCheckedModeBanner: false,
         routes: {
-          // '/second': (context) => MyCalendar(),
+          '/second': (context) => MyCalendar(),
         },
-        theme: ThemeData(primarySwatch: Colors.blueGrey),
+        theme: ThemeData(primarySwatch: Colors.orange),
         home: MultiProvider(
           // ChangeNotifierProvider 통해 변화에 대해 구독
           providers: [

@@ -13,7 +13,7 @@ class Home1 extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.orange,
         ),
         // MultiProvider를 통해 여러가지 Provider를 관리
         home: MultiProvider(
